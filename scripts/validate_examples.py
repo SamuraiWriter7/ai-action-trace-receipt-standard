@@ -28,6 +28,11 @@ VALIDATION_TARGETS = [
         "schema": ROOT / "schemas" / "risk-rollback-policy.schema.json",
         "example": ROOT / "examples" / "risk-rollback-policy.example.yaml",
     },
+    {
+        "name": "Trace and Royalty Bridge",
+        "schema": ROOT / "schemas" / "trace-royalty-bridge.schema.json",
+        "example": ROOT / "examples" / "trace-royalty-bridge.example.yaml",
+    },
 ]
 
 
