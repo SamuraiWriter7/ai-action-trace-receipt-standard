@@ -18,6 +18,11 @@ VALIDATION_TARGETS = [
         "schema": ROOT / "schemas" / "ui-action-event.schema.json",
         "example": ROOT / "examples" / "ui-action-event.example.yaml",
     },
+    {
+        "name": "Consent Gate Policy",
+        "schema": ROOT / "schemas" / "consent-gate-policy.schema.json",
+        "example": ROOT / "examples" / "consent-gate-policy.example.yaml",
+    },
 ]
 
 
