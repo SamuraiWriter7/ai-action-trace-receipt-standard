@@ -1,0 +1,43 @@
+ui_action_event:
+  event_id: uae-2026-0001
+  version: "0.2.0"
+  parent_receipt_id: atr-2026-0001
+  sequence_index: 0
+  timestamp: "2026-06-26T00:00:00Z"
+
+  actor:
+    type: "ai_agent"
+    id: "agent-demo-001"
+    model: "computer-use-agent"
+
+  environment:
+    type: "browser"
+    surface: "local_demo_ui"
+
+  event:
+    type: "click"
+    intent: "Open the submission confirmation screen after the form has been reviewed."
+
+  target:
+    label: "Submit button"
+    selector: "#submit-button"
+    coordinates:
+      x: 742
+      y: 681
+
+  state:
+    before_hash: "sha256:example-before-screen"
+    after_hash: "sha256:example-after-screen"
+
+  consent:
+    required: true
+    approved: false
+    reason: "The action may create an external state change."
+
+  result:
+    status: "pending"
+    summary: "The event is waiting for human confirmation before final submission."
+
+  risk:
+    level: "medium"
+    reversible: true
