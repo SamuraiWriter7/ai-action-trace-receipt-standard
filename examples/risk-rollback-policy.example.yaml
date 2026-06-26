@@ -1,0 +1,98 @@
+risk_rollback_policy:
+  policy_id: rrp-2026-0001
+  version: "0.4.0"
+
+  scope:
+    applies_to: "ui_action_event"
+    environment_types:
+      - "browser"
+      - "desktop"
+
+  risk_levels:
+    - level: "low"
+      description: "Read-only or reversible interface actions."
+      requires_consent: false
+      requires_rollback_plan: false
+
+    - level: "medium"
+      description: "Actions that may change local or temporary state."
+      requires_consent: true
+      requires_rollback_plan: true
+
+    - level: "high"
+      description: "Actions that may affect external systems, files, accounts, or public outputs."
+      requires_consent: true
+      requires_rollback_plan: true
+
+    - level: "critical"
+      description: "Irreversible, financial, credential-related, or sensitive actions."
+      requires_consent: true
+      requires_rollback_plan: true
+
+  rollback_rules:
+    - action_type: "navigate"
+      rollback_available: true
+      rollback_method: "browser_back"
+      rollback_window: "until the browser history state is changed"
+      fallback_required: false
+
+    - action_type: "type"
+      rollback_available: true
+      rollback_method: "undo_action"
+      rollback_window: "before submission or save"
+      fallback_required: false
+
+    - action_type: "submit"
+      rollback_available: false
+      rollback_method: "manual_review"
+      rollback_window: "after submission, rollback depends on external system support"
+      fallback_required: true
+
+    - action_type: "file_deletion"
+      rollback_available: true
+      rollback_method: "restore_backup"
+      rollback_window: "while backup or trash recovery is available"
+      fallback_required: true
+
+    - action_type: "payment"
+      rollback_available: false
+      rollback_method: "manual_review"
+      rollback_window: "refund or cancellation depends on payment provider"
+      fallback_required: true
+
+  stop_conditions:
+    - condition_type: "uncertain_target"
+      severity: "medium"
+      action: "request_review"
+
+    - condition_type: "unexpected_screen_state"
+      severity: "medium"
+      action: "pause"
+
+    - condition_type: "consent_missing"
+      severity: "high"
+      action: "block"
+
+    - condition_type: "irreversible_action_detected"
+      severity: "critical"
+      action: "request_review"
+
+    - condition_type: "credential_prompt_detected"
+      severity: "critical"
+      action: "block"
+
+    - condition_type: "payment_prompt_detected"
+      severity: "critical"
+      action: "request_review"
+
+  fallback_behavior:
+    when_rollback_unavailable: "request_review"
+    when_state_unknown: "pause"
+    when_policy_conflict: "block"
+    when_action_failed: "request_review"
+
+  audit:
+    record_risk_decision: true
+    record_rollback_attempt: true
+    record_stop_condition: true
+    record_failure_reason: true
