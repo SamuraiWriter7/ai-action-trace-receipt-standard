@@ -1,0 +1,276 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/trace-royalty-bridge.schema.json",
+  "title": "Trace and Royalty Bridge",
+  "type": "object",
+  "required": ["trace_royalty_bridge"],
+  "additionalProperties": false,
+  "properties": {
+    "trace_royalty_bridge": {
+      "type": "object",
+      "required": [
+        "bridge_id",
+        "version",
+        "scope",
+        "trace_links",
+        "origin_binding",
+        "attribution_policy",
+        "allocation_hint",
+        "usage_logging",
+        "audit_boundary"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "bridge_id": {
+          "type": "string",
+          "description": "Unique identifier for the trace and royalty bridge record."
+        },
+        "version": {
+          "type": "string",
+          "description": "Schema or specification version."
+        },
+        "scope": {
+          "type": "object",
+          "required": ["applies_to", "bridge_mode"],
+          "additionalProperties": false,
+          "properties": {
+            "applies_to": {
+              "type": "string",
+              "enum": [
+                "action_trace_receipt",
+                "ui_action_event",
+                "agent_session",
+                "workflow",
+                "output_artifact",
+                "other"
+              ]
+            },
+            "bridge_mode": {
+              "type": "string",
+              "enum": [
+                "metadata_only",
+                "attribution_required",
+                "allocation_ready",
+                "audit_required",
+                "other"
+              ]
+            }
+          }
+        },
+        "trace_links": {
+          "type": "object",
+          "required": ["action_trace_receipts"],
+          "additionalProperties": false,
+          "properties": {
+            "action_trace_receipts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "ui_action_events": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "search_trace_receipts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "synchronization_audit_records": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "origin_structure_assets": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "origin_binding": {
+          "type": "object",
+          "required": ["origin_id", "origin_type", "origin_author", "origin_uri"],
+          "additionalProperties": false,
+          "properties": {
+            "origin_id": {
+              "type": "string"
+            },
+            "origin_type": {
+              "type": "string",
+              "enum": [
+                "specification",
+                "idea",
+                "article",
+                "code",
+                "dataset",
+                "policy",
+                "creative_work",
+                "other"
+              ]
+            },
+            "origin_author": {
+              "type": "string"
+            },
+            "origin_uri": {
+              "type": "string"
+            },
+            "origin_hash": {
+              "type": "string"
+            }
+          }
+        },
+        "contribution_context": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "contribution_type": {
+              "type": "string",
+              "enum": [
+                "direct_reference",
+                "derived_structure",
+                "operational_use",
+                "training_reference",
+                "workflow_dependency",
+                "inspiration",
+                "other"
+              ]
+            },
+            "contribution_weight": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "confidence": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "notes": {
+              "type": "string"
+            }
+          }
+        },
+        "attribution_policy": {
+          "type": "object",
+          "required": ["required", "display_required", "machine_readable_required"],
+          "additionalProperties": false,
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "display_required": {
+              "type": "boolean"
+            },
+            "machine_readable_required": {
+              "type": "boolean"
+            },
+            "attribution_text": {
+              "type": "string"
+            }
+          }
+        },
+        "allocation_hint": {
+          "type": "object",
+          "required": ["allocation_required", "allocation_status", "allocation_basis"],
+          "additionalProperties": false,
+          "properties": {
+            "allocation_required": {
+              "type": "boolean"
+            },
+            "allocation_status": {
+              "type": "string",
+              "enum": [
+                "not_required",
+                "pending",
+                "eligible",
+                "allocated",
+                "blocked",
+                "unknown"
+              ]
+            },
+            "allocation_basis": {
+              "type": "string",
+              "enum": [
+                "trace_link",
+                "origin_policy",
+                "usage_policy",
+                "contract",
+                "manual_review",
+                "other"
+              ]
+            },
+            "suggested_share": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "usage_logging": {
+          "type": "object",
+          "required": [
+            "log_required",
+            "log_level",
+            "retention_policy",
+            "redact_sensitive_data"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "log_required": {
+              "type": "boolean"
+            },
+            "log_level": {
+              "type": "string",
+              "enum": ["minimal", "standard", "detailed", "audit"]
+            },
+            "retention_policy": {
+              "type": "string"
+            },
+            "redact_sensitive_data": {
+              "type": "boolean"
+            }
+          }
+        },
+        "audit_boundary": {
+          "type": "object",
+          "required": [
+            "audit_required",
+            "audit_type",
+            "human_review_required"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "audit_required": {
+              "type": "boolean"
+            },
+            "audit_type": {
+              "type": "string",
+              "enum": [
+                "none",
+                "trace_consistency",
+                "origin_verification",
+                "synchronization_check",
+                "royalty_review",
+                "full_review",
+                "other"
+              ]
+            },
+            "human_review_required": {
+              "type": "boolean"
+            },
+            "review_reason": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
