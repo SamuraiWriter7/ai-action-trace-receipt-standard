@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0-candidate] - 2026-06-26
+
+### Added
+
+- Added `Agent Session Trace` layer.
+- Added `schemas/agent-session-trace.schema.json`.
+- Added `examples/agent-session-trace.example.yaml`.
+- Updated validation script to validate:
+  - `Action Trace Receipt`
+  - `UI Action Event`
+  - `Consent Gate Policy`
+  - `Risk and Rollback Policy`
+  - `Trace and Royalty Bridge`
+  - `Agent Session Trace`
+
+### Scope
+
+`v0.6.0-candidate` introduces a session-level trace structure for grouping multiple AI action receipts, UI action events, consent policies, risk policies, and trace bridge records into a single agent execution session.
+
+This release closes the first candidate arc of the AI Action Trace Receipt Standard.
+
+### Purpose
+
+The purpose of this release is to represent an AI agent workflow as a complete session rather than only as isolated actions or events.
+
+In this structure:
+
+- `Action Trace Receipt` records the overall AI-driven action.
+- `UI Action Event` records each meaningful interface event.
+- `Consent Gate Policy` defines when human approval is required.
+- `Risk and Rollback Policy` defines how to classify risk, stop, recover, or escalate.
+- `Trace and Royalty Bridge` connects action traces to origin, attribution, audit, and future value allocation layers.
+- `Agent Session Trace` groups those records into a complete agent session.
+
 ## [0.5.0-candidate] - 2026-06-26
 
 ### Added
