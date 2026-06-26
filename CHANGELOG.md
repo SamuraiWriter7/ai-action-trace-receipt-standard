@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0-candidate] - 2026-06-26
+
+### Added
+
+- Added `Trace and Royalty Bridge` layer.
+- Added `schemas/trace-royalty-bridge.schema.json`.
+- Added `examples/trace-royalty-bridge.example.yaml`.
+- Updated validation script to validate:
+  - `Action Trace Receipt`
+  - `UI Action Event`
+  - `Consent Gate Policy`
+  - `Risk and Rollback Policy`
+  - `Trace and Royalty Bridge`
+
+### Scope
+
+`v0.5.0-candidate` introduces a bridge layer for connecting AI action traces to search traces, synchronization audit records, origin structures, attribution policies, and future royalty systems.
+
+This release does not implement royalty allocation directly.
+
+Instead, it defines bridge metadata for:
+
+- trace linkage
+- origin binding
+- contribution context
+- attribution policy
+- allocation hints
+- usage logging
+- audit boundary
+
+### Purpose
+
+The purpose of this release is to make AI-driven actions linkable to broader trace, audit, attribution, and royalty architectures.
+
+In this structure:
+
+- `Action Trace Receipt` records the overall AI-driven action.
+- `UI Action Event` records each meaningful interface event.
+- `Consent Gate Policy` defines when human approval is required.
+- `Risk and Rollback Policy` defines how to classify risk, stop, recover, or escalate.
+- `Trace and Royalty Bridge` connects action traces to origin, attribution, audit, and future value allocation layers.
+
 ## [0.4.0-candidate] - 2026-06-26
 
 ### Added
