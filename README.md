@@ -109,6 +109,52 @@ It records:
 * related trace links
 * optional royalty bridge metadata
 
+## v0.2 Scope
+
+Version `v0.2.0-candidate` introduces the **UI Action Event Layer**.
+
+While `v0.1.0-candidate` defines the high-level Action Trace Receipt, `v0.2.0-candidate` adds a more granular event structure for recording individual UI actions.
+
+A UI Action Event can represent actions such as:
+
+- click
+- type
+- scroll
+- navigate
+- submit
+- save
+- delete
+- confirm
+- cancel
+- read
+- wait
+
+The basic relationship is:
+
+```text
+Action Trace Receipt
+  └── UI Action Event 0
+  └── UI Action Event 1
+  └── UI Action Event 2
+
+This allows an AI-driven action to be recorded both as a high-level receipt and as a sequence of concrete UI events.
+
+Each event can include:
+
+event identity
+parent receipt link
+sequence index
+actor
+environment
+event type
+event intent
+target UI element
+optional input payload
+before and after state hashes
+consent information
+result status
+risk boundary
+
 ## Non-Goals
 
 This repository does not attempt to define:
