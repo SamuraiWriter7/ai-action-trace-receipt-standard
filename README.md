@@ -217,6 +217,43 @@ default behavior when denied
 default behavior when approval expires
 audit metadata
 
+## v0.4 Scope
+
+Version `v0.4.0-candidate` introduces the **Risk and Rollback Policy** layer.
+
+While `v0.3.0-candidate` defines when an AI-driven action should pause for human approval, `v0.4.0-candidate` defines how to classify action risk, determine rollback availability, identify stop conditions, and choose fallback behavior.
+
+The Risk and Rollback Policy layer is designed to answer questions such as:
+
+* How risky is this AI-driven action?
+* Is the action reversible?
+* Is rollback available?
+* What should happen if the screen state is uncertain?
+* What should happen if consent is missing?
+* What should happen if the action fails?
+* What should happen if the action cannot be safely rolled back?
+
+The basic relationship is:
+
+```text
+Action Trace Receipt
+  └── UI Action Event
+        ├── Consent Gate Policy
+        └── Risk and Rollback Policy
+```
+
+This allows an AI-driven action to be recorded not only as an event, but also as an event governed by explicit risk and recovery boundaries.
+
+Each Risk and Rollback Policy can include:
+
+* policy identity
+* scope
+* risk levels
+* rollback rules
+* stop conditions
+* fallback behavior
+* audit requirements
+
 The goal of `v0.1.0-candidate` is intentionally small:
 
 > define the minimum receipt structure required to record AI-driven actions.
