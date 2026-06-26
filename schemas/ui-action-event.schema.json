@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/ui-action-event.schema.json",
+  "title": "UI Action Event",
+  "type": "object",
+  "required": ["ui_action_event"],
+  "additionalProperties": false,
+  "properties": {
+    "ui_action_event": {
+      "type": "object",
+      "required": [
+        "event_id",
+        "version",
+        "parent_receipt_id",
+        "sequence_index",
+        "actor",
+        "environment",
+        "event",
+        "target",
+        "state",
+        "result",
+        "risk"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "description": "Unique identifier for this UI action event."
+        },
+        "version": {
+          "type": "string",
+          "description": "Schema or specification version."
+        },
+        "parent_receipt_id": {
+          "type": "string",
+          "description": "Identifier of the parent Action Trace Receipt."
+        },
+        "sequence_index": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Order of this event within the parent action trace."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "Optional timestamp for the event."
+        },
+        "actor": {
+          "type": "object",
+          "required": ["type", "id"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["ai_agent", "human", "system", "tool", "other"]
+            },
+            "id": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            }
+          }
+        },
+        "environment": {
+          "type": "object",
+          "required": ["type", "surface"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["browser", "desktop", "mobile", "terminal", "api", "other"]
+            },
+            "surface": {
+              "type": "string"
+            }
+          }
+        },
+        "event": {
+          "type": "object",
+          "required": ["type", "intent"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "click",
+                "type",
+                "scroll",
+                "navigate",
+                "submit",
+                "save",
+                "delete",
+                "confirm",
+                "cancel",
+                "read",
+                "wait",
+                "other"
+              ]
+            },
+            "intent": {
+              "type": "string",
+              "description": "Reason or purpose behind the UI action."
+            }
+          }
+        },
+        "target": {
+          "type": "object",
+          "required": ["label"],
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "selector": {
+              "type": "string"
+            },
+            "coordinates": {
+              "type": "object",
+              "required": ["x", "y"],
+              "additionalProperties": false,
+              "properties": {
+                "x": {
+                  "type": "number"
+                },
+                "y": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "input": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "redacted": {
+              "type": "boolean"
+            }
+          }
+        },
+        "state": {
+          "type": "object",
+          "required": ["before_hash", "after_hash"],
+          "additionalProperties": false,
+          "properties": {
+            "before_hash": {
+              "type": "string"
+            },
+            "after_hash": {
+              "type": "string"
+            }
+          }
+        },
+        "consent": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "approved": {
+              "type": "boolean"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        },
+        "result": {
+          "type": "object",
+          "required": ["status", "summary"],
+          "additionalProperties": false,
+          "properties": {
+            "status": {
+              "type": "string",
+              "enum": ["success", "failed", "blocked", "pending", "skipped"]
+            },
+            "summary": {
+              "type": "string"
+            }
+          }
+        },
+        "risk": {
+          "type": "object",
+          "required": ["level", "reversible"],
+          "additionalProperties": false,
+          "properties": {
+            "level": {
+              "type": "string",
+              "enum": ["low", "medium", "high", "critical"]
+            },
+            "reversible": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}
