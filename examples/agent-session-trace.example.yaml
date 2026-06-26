@@ -1,0 +1,47 @@
+agent_session_trace:
+  session_id: ast-2026-0001
+  version: "0.6.0"
+
+  agent:
+    agent_id: "agent-demo-001"
+    agent_type: "computer_use_agent"
+    model_profile: "model-agnostic"
+
+  runtime:
+    environment_type: "browser"
+    harness_id: "agentcore-like-runtime"
+    isolation_boundary: "session_sandbox"
+    sandboxed: true
+
+  session:
+    started_at: "2026-06-26T00:00:00Z"
+    ended_at: "2026-06-26T00:05:00Z"
+    status: "completed"
+    duration_ms: 300000
+
+  linked_receipts:
+    action_trace_receipts:
+      - "atr-2026-0001"
+    ui_action_events:
+      - "uae-2026-0001"
+    consent_gate_policies:
+      - "cgp-2026-0001"
+    risk_rollback_policies:
+      - "rrp-2026-0001"
+    trace_royalty_bridges:
+      - "trb-2026-0001"
+
+  session_outcome:
+    summary: "The agent reviewed a local demo form and prepared it for human-confirmed submission."
+    external_side_effect: false
+    human_review_required: true
+    final_state: "ready_for_human_confirmation"
+    produced_artifacts:
+      - "examples/action-trace-receipt.example.yaml"
+      - "examples/ui-action-event.example.yaml"
+
+  audit:
+    trace_complete: true
+    unresolved_risks: false
+    sensitive_data_redacted: true
+    audit_notes: "The session completed inside a sandboxed demo environment without external side effects."
