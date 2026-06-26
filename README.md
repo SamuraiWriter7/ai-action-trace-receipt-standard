@@ -7,6 +7,12 @@
 
 ## Status
 
+## Current Status
+
+**Current status:** `v0.2.0-candidate`
+
+This candidate release adds the **UI Action Event Layer**, allowing individual AI-driven UI actions such as clicks, typing, scrolling, navigation, submission, confirmation, and cancellation to be recorded as structured events linked to a parent Action Trace Receipt.
+
 **Current status:** `v0.1.0-candidate`
 
 This repository is currently an experimental candidate specification.
