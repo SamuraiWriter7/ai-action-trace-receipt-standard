@@ -23,6 +23,11 @@ VALIDATION_TARGETS = [
         "schema": ROOT / "schemas" / "consent-gate-policy.schema.json",
         "example": ROOT / "examples" / "consent-gate-policy.example.yaml",
     },
+    {
+        "name": "Risk and Rollback Policy",
+        "schema": ROOT / "schemas" / "risk-rollback-policy.schema.json",
+        "example": ROOT / "examples" / "risk-rollback-policy.example.yaml",
+    },
 ]
 
 
