@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/risk-rollback-policy.schema.json",
+  "title": "Risk and Rollback Policy",
+  "type": "object",
+  "required": ["risk_rollback_policy"],
+  "additionalProperties": false,
+  "properties": {
+    "risk_rollback_policy": {
+      "type": "object",
+      "required": [
+        "policy_id",
+        "version",
+        "scope",
+        "risk_levels",
+        "rollback_rules",
+        "stop_conditions",
+        "fallback_behavior",
+        "audit"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "policy_id": {
+          "type": "string",
+          "description": "Unique identifier for the risk and rollback policy."
+        },
+        "version": {
+          "type": "string",
+          "description": "Schema or specification version."
+        },
+        "scope": {
+          "type": "object",
+          "required": ["applies_to", "environment_types"],
+          "additionalProperties": false,
+          "properties": {
+            "applies_to": {
+              "type": "string",
+              "enum": [
+                "action_trace_receipt",
+                "ui_action_event",
+                "agent_session",
+                "workflow",
+                "other"
+              ]
+            },
+            "environment_types": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["browser", "desktop", "mobile", "terminal", "api", "other"]
+              }
+            }
+          }
+        },
+        "risk_levels": {
+          "type": "array",
+          "description": "Risk classification rules for AI-driven actions.",
+          "items": {
+            "type": "object",
+            "required": ["level", "description", "requires_consent", "requires_rollback_plan"],
+            "additionalProperties": false,
+            "properties": {
+              "level": {
+                "type": "string",
+                "enum": ["low", "medium", "high", "critical"]
+              },
+              "description": {
+                "type": "string"
+              },
+              "requires_consent": {
+                "type": "boolean"
+              },
+              "requires_rollback_plan": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "rollback_rules": {
+          "type": "array",
+          "description": "Rules describing how an action can be reverted or mitigated.",
+          "items": {
+            "type": "object",
+            "required": [
+              "action_type",
+              "rollback_available",
+              "rollback_method",
+              "rollback_window",
+              "fallback_required"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "action_type": {
+                "type": "string",
+                "enum": [
+                  "click",
+                  "type",
+                  "scroll",
+                  "navigate",
+                  "submit",
+                  "save",
+                  "delete",
+                  "confirm",
+                  "cancel",
+                  "read",
+                  "wait",
+                  "payment",
+                  "message_send",
+                  "file_modification",
+                  "file_deletion",
+                  "credential_entry",
+                  "public_publication",
+                  "other"
+                ]
+              },
+              "rollback_available": {
+                "type": "boolean"
+              },
+              "rollback_method": {
+                "type": "string",
+                "enum": [
+                  "none",
+                  "browser_back",
+                  "undo_action",
+                  "restore_backup",
+                  "delete_created_resource",
+                  "send_correction",
+                  "manual_review",
+                  "system_revert",
+                  "other"
+                ]
+              },
+              "rollback_window": {
+                "type": "string",
+                "description": "Time window or condition under which rollback is possible."
+              },
+              "fallback_required": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "stop_conditions": {
+          "type": "array",
+          "description": "Conditions that require the agent to stop or pause execution.",
+          "items": {
+            "type": "object",
+            "required": ["condition_type", "severity", "action"],
+            "additionalProperties": false,
+            "properties": {
+              "condition_type": {
+                "type": "string",
+                "enum": [
+                  "uncertain_target",
+                  "unexpected_screen_state",
+                  "consent_missing",
+                  "risk_escalation",
+                  "irreversible_action_detected",
+                  "sensitive_data_detected",
+                  "credential_prompt_detected",
+                  "payment_prompt_detected",
+                  "external_submission_detected",
+                  "policy_conflict",
+                  "other"
+                ]
+              },
+              "severity": {
+                "type": "string",
+                "enum": ["low", "medium", "high", "critical"]
+              },
+              "action": {
+                "type": "string",
+                "enum": ["continue", "pause", "request_review", "block", "rollback"]
+              }
+            }
+          }
+        },
+        "fallback_behavior": {
+          "type": "object",
+          "required": [
+            "when_rollback_unavailable",
+            "when_state_unknown",
+            "when_policy_conflict",
+            "when_action_failed"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "when_rollback_unavailable": {
+              "type": "string",
+              "enum": ["pause", "request_review", "block", "log_only"]
+            },
+            "when_state_unknown": {
+              "type": "string",
+              "enum": ["pause", "request_review", "block", "log_only"]
+            },
+            "when_policy_conflict": {
+              "type": "string",
+              "enum": ["pause", "request_review", "block", "log_only"]
+            },
+            "when_action_failed": {
+              "type": "string",
+              "enum": ["retry_once", "pause", "request_review", "block", "rollback"]
+            }
+          }
+        },
+        "audit": {
+          "type": "object",
+          "required": [
+            "record_risk_decision",
+            "record_rollback_attempt",
+            "record_stop_condition",
+            "record_failure_reason"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "record_risk_decision": {
+              "type": "boolean"
+            },
+            "record_rollback_attempt": {
+              "type": "boolean"
+            },
+            "record_stop_condition": {
+              "type": "boolean"
+            },
+            "record_failure_reason": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}
