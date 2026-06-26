@@ -1,0 +1,56 @@
+trace_royalty_bridge:
+  bridge_id: trb-2026-0001
+  version: "0.5.0"
+
+  scope:
+    applies_to: "action_trace_receipt"
+    bridge_mode: "attribution_required"
+
+  trace_links:
+    action_trace_receipts:
+      - "atr-2026-0001"
+    ui_action_events:
+      - "uae-2026-0001"
+    search_trace_receipts:
+      - "astr-2026-0007"
+    synchronization_audit_records:
+      - "sar-2026-0003"
+    origin_structure_assets:
+      - "osa-2026-0005"
+
+  origin_binding:
+    origin_id: "ai-search-trace-receipt-standard"
+    origin_type: "specification"
+    origin_author: "SamuraiWriter7"
+    origin_uri: "https://github.com/SamuraiWriter7/ai-search-trace-receipt-standard"
+    origin_hash: "sha256:example-origin-hash"
+
+  contribution_context:
+    contribution_type: "workflow_dependency"
+    contribution_weight: 0.65
+    confidence: 0.82
+    notes: "The AI action trace depends on a prior search trace receipt and origin specification context."
+
+  attribution_policy:
+    required: true
+    display_required: true
+    machine_readable_required: true
+    attribution_text: "Based on AI Search Trace Receipt Standard by SamuraiWriter7."
+
+  allocation_hint:
+    allocation_required: false
+    allocation_status: "pending"
+    allocation_basis: "trace_link"
+    suggested_share: 0.1
+
+  usage_logging:
+    log_required: true
+    log_level: "standard"
+    retention_policy: "retain while linked receipts remain active"
+    redact_sensitive_data: true
+
+  audit_boundary:
+    audit_required: true
+    audit_type: "trace_consistency"
+    human_review_required: false
+    review_reason: "Automated consistency check is sufficient for this candidate example."
