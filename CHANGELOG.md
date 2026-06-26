@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0-candidate] - 2026-06-26
+
+### Added
+
+- Added `Risk and Rollback Policy` layer.
+- Added `schemas/risk-rollback-policy.schema.json`.
+- Added `examples/risk-rollback-policy.example.yaml`.
+- Updated validation script to validate:
+  - `Action Trace Receipt`
+  - `UI Action Event`
+  - `Consent Gate Policy`
+  - `Risk and Rollback Policy`
+
+### Scope
+
+`v0.4.0-candidate` introduces explicit risk classification, rollback availability, stop conditions, fallback behavior, and audit recording for AI-driven UI actions.
+
+This release defines how an AI action should be evaluated when:
+
+- risk level increases
+- rollback may not be available
+- the screen state is uncertain
+- consent is missing
+- sensitive data is detected
+- external submission is detected
+- payment or credential prompts appear
+- an action fails or produces an unexpected result
+
+### Purpose
+
+The purpose of this release is to make AI-driven actions safer and more reviewable.
+
+In this structure:
+
+- `Action Trace Receipt` records the overall AI-driven action.
+- `UI Action Event` records each meaningful interface event.
+- `Consent Gate Policy` defines when human approval is required.
+- `Risk and Rollback Policy` defines how to classify risk, when to stop, and how to recover or escalate when needed.
+
 ## [0.3.0-candidate] - 2026-06-26
 
 ### Added
