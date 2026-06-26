@@ -9,6 +9,19 @@
 
 ## Current Status
 
+## Current Status
+
+**Current status:** `v0.4.0-candidate`
+
+This candidate release adds the **Risk and Rollback Policy** layer, defining how AI-driven UI actions should classify risk, detect stop conditions, determine rollback availability, and choose fallback behavior when actions fail or become unsafe.
+
+The standard now includes four core layers:
+
+- `Action Trace Receipt` — records the overall AI-driven action.
+- `UI Action Event` — records individual UI events such as clicks, typing, scrolling, navigation, and submission.
+- `Consent Gate Policy` — defines human review boundaries for risky, irreversible, sensitive, or externally impactful actions.
+- `Risk and Rollback Policy` — defines risk levels, rollback rules, stop conditions, fallback behavior, and audit requirements.
+
 **Current status:** `v0.2.0-candidate`
 
 This candidate release adds the **UI Action Event Layer**, allowing individual AI-driven UI actions such as clicks, typing, scrolling, navigation, submission, confirmation, and cancellation to be recorded as structured events linked to a parent Action Trace Receipt.
