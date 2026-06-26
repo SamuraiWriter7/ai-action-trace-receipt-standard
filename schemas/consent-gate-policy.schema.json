@@ -1,0 +1,174 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/consent-gate-policy.schema.json",
+  "title": "Consent Gate Policy",
+  "type": "object",
+  "required": ["consent_gate_policy"],
+  "additionalProperties": false,
+  "properties": {
+    "consent_gate_policy": {
+      "type": "object",
+      "required": [
+        "policy_id",
+        "version",
+        "scope",
+        "consent_triggers",
+        "approval_states",
+        "human_review_boundary",
+        "default_behavior"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "policy_id": {
+          "type": "string",
+          "description": "Unique identifier for the consent gate policy."
+        },
+        "version": {
+          "type": "string",
+          "description": "Schema or specification version."
+        },
+        "scope": {
+          "type": "object",
+          "required": ["applies_to", "environment_types"],
+          "additionalProperties": false,
+          "properties": {
+            "applies_to": {
+              "type": "string",
+              "enum": [
+                "action_trace_receipt",
+                "ui_action_event",
+                "agent_session",
+                "workflow",
+                "other"
+              ]
+            },
+            "environment_types": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": ["browser", "desktop", "mobile", "terminal", "api", "other"]
+              }
+            }
+          }
+        },
+        "consent_triggers": {
+          "type": "array",
+          "description": "Conditions that require explicit human consent before execution.",
+          "items": {
+            "type": "object",
+            "required": ["trigger_type", "required", "reason"],
+            "additionalProperties": false,
+            "properties": {
+              "trigger_type": {
+                "type": "string",
+                "enum": [
+                  "external_submission",
+                  "payment",
+                  "message_send",
+                  "file_modification",
+                  "file_deletion",
+                  "credential_entry",
+                  "personal_data_use",
+                  "account_setting_change",
+                  "public_publication",
+                  "irreversible_action",
+                  "high_risk_action",
+                  "other"
+                ]
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "approval_states": {
+          "type": "array",
+          "description": "Allowed states for human approval.",
+          "items": {
+            "type": "string",
+            "enum": ["not_required", "pending", "approved", "denied", "expired"]
+          }
+        },
+        "human_review_boundary": {
+          "type": "object",
+          "required": ["review_required_for", "reviewer_type", "confirmation_mode"],
+          "additionalProperties": false,
+          "properties": {
+            "review_required_for": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "medium_risk",
+                  "high_risk",
+                  "critical_risk",
+                  "external_side_effect",
+                  "irreversible_action",
+                  "sensitive_input",
+                  "public_output",
+                  "financial_action",
+                  "other"
+                ]
+              }
+            },
+            "reviewer_type": {
+              "type": "string",
+              "enum": ["human_user", "authorized_operator", "system_owner", "other"]
+            },
+            "confirmation_mode": {
+              "type": "string",
+              "enum": [
+                "explicit_click",
+                "typed_confirmation",
+                "out_of_band_confirmation",
+                "policy_preapproval",
+                "other"
+              ]
+            }
+          }
+        },
+        "default_behavior": {
+          "type": "object",
+          "required": ["when_uncertain", "when_denied", "when_expired"],
+          "additionalProperties": false,
+          "properties": {
+            "when_uncertain": {
+              "type": "string",
+              "enum": ["pause", "block", "allow", "request_review"]
+            },
+            "when_denied": {
+              "type": "string",
+              "enum": ["block", "rollback", "pause", "log_only"]
+            },
+            "when_expired": {
+              "type": "string",
+              "enum": ["block", "request_review", "pause", "log_only"]
+            }
+          }
+        },
+        "audit": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "record_consent_decision": {
+              "type": "boolean"
+            },
+            "record_reviewer_id": {
+              "type": "boolean"
+            },
+            "record_timestamp": {
+              "type": "boolean"
+            },
+            "redact_sensitive_fields": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}
