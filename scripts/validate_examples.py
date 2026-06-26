@@ -12,7 +12,12 @@ VALIDATION_TARGETS = [
         "name": "AI Action Trace Receipt",
         "schema": ROOT / "schemas" / "action-trace-receipt.schema.json",
         "example": ROOT / "examples" / "action-trace-receipt.example.yaml",
-    }
+    },
+    {
+        "name": "UI Action Event",
+        "schema": ROOT / "schemas" / "ui-action-event.schema.json",
+        "example": ROOT / "examples" / "ui-action-event.example.yaml",
+    },
 ]
 
 
