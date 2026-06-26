@@ -174,6 +174,49 @@ This repository does not attempt to define:
 * a replacement for security logs
 * a complete legal or regulatory standard
 
+## v0.3 Scope
+
+Version `v0.3.0-candidate` introduces the **Consent Gate Policy** layer.
+
+While `v0.1.0-candidate` defines the high-level Action Trace Receipt and `v0.2.0-candidate` defines granular UI Action Events, `v0.3.0-candidate` defines when an AI-driven action should pause for human approval.
+
+The Consent Gate Policy layer is designed to make human review boundaries explicit.
+
+A consent gate may be required for actions such as:
+
+- external submission
+- payment
+- message sending
+- file modification
+- file deletion
+- credential entry
+- personal data use
+- account setting changes
+- public publication
+- irreversible actions
+- high-risk actions
+
+The basic relationship is:
+
+```text
+Action Trace Receipt
+  └── UI Action Event
+        └── Consent Gate Policy
+
+This allows an AI action to be recorded not only as an event, but also as an event governed by a clear human approval boundary.
+
+Each Consent Gate Policy can include:
+
+policy identity
+scope
+consent triggers
+allowed approval states
+human review boundary
+default behavior when uncertain
+default behavior when denied
+default behavior when approval expires
+audit metadata
+
 The goal of `v0.1.0-candidate` is intentionally small:
 
 > define the minimum receipt structure required to record AI-driven actions.
