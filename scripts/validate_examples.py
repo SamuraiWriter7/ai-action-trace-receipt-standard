@@ -33,6 +33,11 @@ VALIDATION_TARGETS = [
         "schema": ROOT / "schemas" / "trace-royalty-bridge.schema.json",
         "example": ROOT / "examples" / "trace-royalty-bridge.example.yaml",
     },
+    {
+        "name": "Agent Session Trace",
+        "schema": ROOT / "schemas" / "agent-session-trace.schema.json",
+        "example": ROOT / "examples" / "agent-session-trace.example.yaml",
+    },
 ]
 
 
