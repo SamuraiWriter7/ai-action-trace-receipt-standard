@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/action-trace-receipt.schema.json",
+  "title": "AI Action Trace Receipt",
+  "type": "object",
+  "required": ["action_trace_receipt"],
+  "additionalProperties": false,
+  "properties": {
+    "action_trace_receipt": {
+      "type": "object",
+      "required": [
+        "receipt_id",
+        "version",
+        "origin_intent",
+        "environment",
+        "state_before",
+        "action",
+        "consent_gate",
+        "state_after",
+        "risk"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "receipt_id": {
+          "type": "string",
+          "description": "Unique identifier for the action trace receipt."
+        },
+        "version": {
+          "type": "string",
+          "description": "Schema or specification version."
+        },
+        "origin_intent": {
+          "type": "object",
+          "required": ["human_prompt", "intent_hash"],
+          "additionalProperties": false,
+          "properties": {
+            "human_prompt": {
+              "type": "string"
+            },
+            "intent_hash": {
+              "type": "string"
+            }
+          }
+        },
+        "knowledge_context": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "source_trace_receipts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "okf_bundle_id": {
+              "type": "string"
+            }
+          }
+        },
+        "environment": {
+          "type": "object",
+          "required": ["type", "surface", "external_side_effect"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["browser", "desktop", "mobile", "terminal", "api", "other"]
+            },
+            "surface": {
+              "type": "string"
+            },
+            "external_side_effect": {
+              "type": "boolean"
+            }
+          }
+        },
+        "state_before": {
+          "type": "object",
+          "required": ["screenshot_hash", "ui_elements"],
+          "additionalProperties": false,
+          "properties": {
+            "screenshot_hash": {
+              "type": "string"
+            },
+            "ui_elements": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["type", "label"],
+                "additionalProperties": false,
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "action": {
+          "type": "object",
+          "required": ["type", "target", "intent"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["click", "type", "scroll", "submit", "save", "delete", "navigate", "read", "other"]
+            },
+            "target": {
+              "type": "string"
+            },
+            "intent": {
+              "type": "string"
+            }
+          }
+        },
+        "consent_gate": {
+          "type": "object",
+          "required": ["required", "approved", "reason"],
+          "additionalProperties": false,
+          "properties": {
+            "required": {
+              "type": "boolean"
+            },
+            "approved": {
+              "type": "boolean"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        },
+        "state_after": {
+          "type": "object",
+          "required": ["screenshot_hash", "outcome"],
+          "additionalProperties": false,
+          "properties": {
+            "screenshot_hash": {
+              "type": "string"
+            },
+            "outcome": {
+              "type": "string"
+            }
+          }
+        },
+        "risk": {
+          "type": "object",
+          "required": ["level", "reversible"],
+          "additionalProperties": false,
+          "properties": {
+            "level": {
+              "type": "string",
+              "enum": ["low", "medium", "high", "critical"]
+            },
+            "reversible": {
+              "type": "boolean"
+            }
+          }
+        },
+        "trace_links": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "related_receipts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "royalty_bridge": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "attribution_required": {
+              "type": "boolean"
+            },
+            "allocation_required": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}
