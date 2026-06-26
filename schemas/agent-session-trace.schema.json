@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/agent-session-trace.schema.json",
+  "title": "Agent Session Trace",
+  "type": "object",
+  "required": ["agent_session_trace"],
+  "additionalProperties": false,
+  "properties": {
+    "agent_session_trace": {
+      "type": "object",
+      "required": [
+        "session_id",
+        "version",
+        "agent",
+        "runtime",
+        "session",
+        "linked_receipts",
+        "session_outcome",
+        "audit"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "session_id": {
+          "type": "string",
+          "description": "Unique identifier for the agent session trace."
+        },
+        "version": {
+          "type": "string",
+          "description": "Schema or specification version."
+        },
+        "agent": {
+          "type": "object",
+          "required": ["agent_id", "agent_type", "model_profile"],
+          "additionalProperties": false,
+          "properties": {
+            "agent_id": {
+              "type": "string"
+            },
+            "agent_type": {
+              "type": "string",
+              "enum": [
+                "computer_use_agent",
+                "browser_agent",
+                "desktop_agent",
+                "workflow_agent",
+                "tool_agent",
+                "other"
+              ]
+            },
+            "model_profile": {
+              "type": "string",
+              "description": "Model profile or model-agnostic description used during the session."
+            }
+          }
+        },
+        "runtime": {
+          "type": "object",
+          "required": ["environment_type", "harness_id", "isolation_boundary"],
+          "additionalProperties": false,
+          "properties": {
+            "environment_type": {
+              "type": "string",
+              "enum": ["browser", "desktop", "mobile", "terminal", "api", "hybrid", "other"]
+            },
+            "harness_id": {
+              "type": "string",
+              "description": "Identifier or description of the agent runtime harness."
+            },
+            "isolation_boundary": {
+              "type": "string",
+              "description": "Sandbox, session, microVM, container, or other isolation boundary."
+            },
+            "sandboxed": {
+              "type": "boolean"
+            }
+          }
+        },
+        "session": {
+          "type": "object",
+          "required": ["started_at", "ended_at", "status"],
+          "additionalProperties": false,
+          "properties": {
+            "started_at": {
+              "type": "string"
+            },
+            "ended_at": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["completed", "failed", "paused", "blocked", "pending", "cancelled"]
+            },
+            "duration_ms": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "linked_receipts": {
+          "type": "object",
+          "required": ["action_trace_receipts", "ui_action_events"],
+          "additionalProperties": false,
+          "properties": {
+            "action_trace_receipts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "ui_action_events": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "consent_gate_policies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "risk_rollback_policies": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "trace_royalty_bridges": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "session_outcome": {
+          "type": "object",
+          "required": ["summary", "external_side_effect", "human_review_required"],
+          "additionalProperties": false,
+          "properties": {
+            "summary": {
+              "type": "string"
+            },
+            "external_side_effect": {
+              "type": "boolean"
+            },
+            "human_review_required": {
+              "type": "boolean"
+            },
+            "final_state": {
+              "type": "string"
+            },
+            "produced_artifacts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "audit": {
+          "type": "object",
+          "required": [
+            "trace_complete",
+            "unresolved_risks",
+            "sensitive_data_redacted"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "trace_complete": {
+              "type": "boolean"
+            },
+            "unresolved_risks": {
+              "type": "boolean"
+            },
+            "sensitive_data_redacted": {
+              "type": "boolean"
+            },
+            "audit_notes": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}
