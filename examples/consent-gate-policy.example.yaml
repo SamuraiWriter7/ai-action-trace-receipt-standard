@@ -1,0 +1,61 @@
+consent_gate_policy:
+  policy_id: cgp-2026-0001
+  version: "0.3.0"
+
+  scope:
+    applies_to: "ui_action_event"
+    environment_types:
+      - "browser"
+      - "desktop"
+
+  consent_triggers:
+    - trigger_type: "external_submission"
+      required: true
+      reason: "Submitting data may create an external state change."
+
+    - trigger_type: "payment"
+      required: true
+      reason: "Financial actions require explicit human approval."
+
+    - trigger_type: "file_deletion"
+      required: true
+      reason: "Deletion may be irreversible."
+
+    - trigger_type: "credential_entry"
+      required: true
+      reason: "Credential use requires human supervision."
+
+    - trigger_type: "public_publication"
+      required: true
+      reason: "Publishing content may affect public attribution and reputation."
+
+  approval_states:
+    - "not_required"
+    - "pending"
+    - "approved"
+    - "denied"
+    - "expired"
+
+  human_review_boundary:
+    review_required_for:
+      - "medium_risk"
+      - "high_risk"
+      - "critical_risk"
+      - "external_side_effect"
+      - "irreversible_action"
+      - "sensitive_input"
+      - "public_output"
+      - "financial_action"
+    reviewer_type: "human_user"
+    confirmation_mode: "explicit_click"
+
+  default_behavior:
+    when_uncertain: "request_review"
+    when_denied: "block"
+    when_expired: "request_review"
+
+  audit:
+    record_consent_decision: true
+    record_reviewer_id: false
+    record_timestamp: true
+    redact_sensitive_fields: true
