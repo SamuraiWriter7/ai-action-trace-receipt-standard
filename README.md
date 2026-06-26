@@ -417,6 +417,35 @@ Action Trace Receipt
         └── Trace and Royalty Bridge
 ```
 
+## v0.6 Scope — Agent Session Trace
+
+Version `v0.6.0-candidate` introduces the **Agent Session Trace** layer.
+
+While earlier versions define individual action receipts, UI events, consent gates, risk boundaries, rollback policies, and trace bridges, `v0.6.0-candidate` groups those records into a single AI agent execution session.
+
+The Agent Session Trace layer is designed to answer questions such as:
+
+- Which agent performed the session?
+- What runtime or harness was used?
+- What isolation boundary protected the session?
+- When did the session start and end?
+- Which action receipts and UI events were included?
+- Which consent and risk policies governed the session?
+- Which trace and royalty bridges were linked?
+- What was the final outcome?
+- Were any risks unresolved?
+- Was sensitive data redacted?
+
+The basic relationship is:
+
+```text
+Agent Session Trace
+  ├── Action Trace Receipt
+  ├── UI Action Event
+  ├── Consent Gate Policy
+  ├── Risk and Rollback Policy
+  └── Trace and Royalty Bridge
+
 This allows an AI-driven action to be linked not only to what happened, but also to what prior knowledge, origin structure, or trace context contributed to the action.
 
 Each Trace and Royalty Bridge can include:
