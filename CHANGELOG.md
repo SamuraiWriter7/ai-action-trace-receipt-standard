@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0-candidate] - 2026-06-26
+
+### Added
+
+- Added `Consent Gate Policy` layer.
+- Added `schemas/consent-gate-policy.schema.json`.
+- Added `examples/consent-gate-policy.example.yaml`.
+- Updated validation script to validate:
+  - `Action Trace Receipt`
+  - `UI Action Event`
+  - `Consent Gate Policy`
+
+### Scope
+
+`v0.3.0-candidate` expands the consent boundary model for AI-driven UI actions.
+
+This release defines when an AI action should require explicit human approval before execution.
+
+Consent triggers include:
+
+- external submission
+- payment
+- message sending
+- file modification
+- file deletion
+- credential entry
+- personal data use
+- account setting changes
+- public publication
+- irreversible actions
+- high-risk actions
+
+### Purpose
+
+The purpose of this release is to make human review boundaries explicit.
+
+In this structure:
+
+- `Action Trace Receipt` records the overall action.
+- `UI Action Event` records individual interface events.
+- `Consent Gate Policy` defines when an event must pause for human approval.
+
 ## [0.2.0-candidate] - 2026-06-26
 
 ### Added
