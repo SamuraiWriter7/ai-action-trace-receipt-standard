@@ -1,0 +1,51 @@
+action_trace_receipt:
+  receipt_id: atr-2026-0001
+  version: "0.1.0"
+
+  origin_intent:
+    human_prompt: "Review the form and prepare it for submission."
+    intent_hash: "sha256:example-intent-hash"
+
+  knowledge_context:
+    source_trace_receipts:
+      - "astr-2026-0007"
+    okf_bundle_id: "okf-demo-bundle-0001"
+
+  environment:
+    type: "browser"
+    surface: "local_demo_ui"
+    external_side_effect: false
+
+  state_before:
+    screenshot_hash: "sha256:example-before-screen"
+    ui_elements:
+      - type: "input"
+        label: "Name"
+      - type: "button"
+        label: "Submit"
+
+  action:
+    type: "click"
+    target: "Submit button"
+    intent: "Prepare the completed form for human-confirmed submission."
+
+  consent_gate:
+    required: true
+    approved: false
+    reason: "Submission may create an external state change."
+
+  state_after:
+    screenshot_hash: "sha256:example-after-screen"
+    outcome: "submission_confirmation_visible"
+
+  risk:
+    level: "medium"
+    reversible: true
+
+  trace_links:
+    related_receipts:
+      - "astr-2026-0007"
+
+  royalty_bridge:
+    attribution_required: true
+    allocation_required: false
